@@ -1,18 +1,17 @@
-import gpflow
 from sghmc_dgp import DGP
 
 import numpy as np
 from kernels import SquaredExponential
 from likelihoods import Gaussian
 
+
 class RegressionModel(object):
-    def __init__(self, is_test=False, seed=0):
+    def __init__(self):
         class ARGS:
             num_inducing = 100
             iterations = 10000
-            adam_lr = 0.01
             minibatch_size = 10000
-            window_size = 1
+            window_size = 100
             num_posterior_samples = 100
             posterior_sample_spacing = 50
         self.ARGS = ARGS
@@ -64,7 +63,6 @@ class RegressionModel(object):
 
     def predict(self, Xs):
         ms, vs = self._predict(Xs, self.ARGS.num_posterior_samples)
-
         # the first two moments
         # In the paper, we used the actual GMM to calculate the pdf instead of the moment matched one that is used here.
         m = np.average(ms, 0)

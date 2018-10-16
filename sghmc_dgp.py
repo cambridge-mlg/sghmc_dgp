@@ -79,7 +79,6 @@ class DGP(BaseModel):
 
         self.generate_update_step(self.nll, epsilon, mdecay)
         self.adam = tf.train.AdamOptimizer(adam_lr)
-        print(tf.trainable_variables())
         self.hyper_train_op = self.adam.minimize(self.nll)
 
         config = tf.ConfigProto()
@@ -97,4 +96,4 @@ class DGP(BaseModel):
             m, v = self.session.run((self.y_mean, self.y_var), feed_dict=feed_dict)
             ms.append(m)
             vs.append(v)
-        return np.concatenate(ms), np.concatenate(vs)
+        return np.stack(ms, 0), np.stack(vs, 0)
