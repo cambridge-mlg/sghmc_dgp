@@ -1,7 +1,6 @@
 # Credit to GPflow
 
 import tensorflow as tf
-import numpy as np
 
 
 def base_conditional(Kmn, Kmm, Knn, f, *, full_cov=False, q_sqrt=None, white=False):
@@ -98,7 +97,7 @@ def conditional(Xnew, X, kern, f, *, full_cov=False, q_sqrt=None, white=False):
     """
 
     num_data = tf.shape(X)[0]  # M
-    Kmm = kern.K(X) + tf.eye(num_data, dtype=tf.float64) * 1e-10
+    Kmm = kern.K(X) + tf.eye(num_data, dtype=tf.float64) * 1e-7
     Kmn = kern.K(X, Xnew)
     if full_cov:
         Knn = kern.K(Xnew)

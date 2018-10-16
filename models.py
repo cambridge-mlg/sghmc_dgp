@@ -4,8 +4,6 @@ from sghmc_dgp import DGP
 import numpy as np
 from kernels import SquaredExponential
 from likelihoods import Gaussian
-from scipy.cluster.vq import kmeans2
-import tensorflow as tf
 
 class RegressionModel(object):
     def __init__(self, is_test=False, seed=0):
