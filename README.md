@@ -19,7 +19,7 @@ pages TBD
 ```
 @inproceedings{havasi2018inference,
   title={Inference in Deep Gaussian Processes using Stochastic Gradient Hamiltonian Monte Carlo},
-  author={Havasi, Marton and Hern{\'a}ndez-Lobato, Jos{\'e} Miguel and Murillo-Fuentes, Juan Jos{\'e},
+  author={Havasi, Marton and Hern{\'a}ndez-Lobato, Jos{\'e} Miguel and Murillo-Fuentes, Juan Jos{\'e}},
   booktitle={Advances in Neural Information Processing Systems},
   year={2018}
 }
