@@ -1,6 +1,8 @@
 from sghmc_dgp import DGP
 
 import numpy as np
+from scipy.stats import norm
+from scipy.misc import logsumexp
 from kernels import SquaredExponential
 from likelihoods import Gaussian
 
@@ -63,11 +65,14 @@ class RegressionModel(object):
 
     def predict(self, Xs):
         ms, vs = self._predict(Xs, self.ARGS.num_posterior_samples)
-        # the first two moments
-        # In the paper, we used the actual GMM to calculate the pdf instead of the moment matched one that is used here.
         m = np.average(ms, 0)
         v = np.average(vs + ms**2, 0) - m**2
         return m, v
+
+    def calculate_density(self, Xs, Ys):
+        ms, vs = self._predict(Xs, self.ARGS.num_posterior_samples)
+        logps = norm.logpdf(np.repeat(Ys[None, :, :], self.ARGS.num_posterior_samples, axis=0), ms, np.sqrt(vs))
+        return logsumexp(logps, axis=0) - np.log(self.ARGS.num_posterior_samples)
 
     def sample(self, Xs, S):
         ms, vs = self._predict(Xs, S)

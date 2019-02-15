@@ -36,4 +36,5 @@ model = RegressionModel()
 model.fit(X, Y)
 
 m, v = model.predict(Xs)
-print(np.mean(norm.logpdf(Ys, m, np.sqrt(v))))
+print('MSE', np.mean(np.square(Ys - m)))
+print('MLL', np.mean(model.calculate_density(Xs, Ys)))
